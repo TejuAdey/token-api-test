@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token List</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Token List</h1>
+        <div class="search-container">
+            <form method="POST">
+                <input type="text" name="search_term" placeholder="Enter search term" value="{{ search_term }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        {% if api_response_time is defined %}
+        <div class="search-info">
+            <p>Search completed in {{ "%.2f"|format(api_response_time) }} seconds</p>
+        </div>
+        {% endif %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Symbol</th>
+                    <th>Decimals</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for token in tokens %}
+                    <tr>
+                        <td>{{ token.name }}</td>
+                        <td title="{{ token.address }}">{{ token.formatted_address }}</td>
+                        <td>{{ token.symbol }}</td>
+                        <td>{{ token.decimals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
